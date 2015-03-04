@@ -1,12 +1,12 @@
 import csv
 
 def write_footprint(s,codigo):
-     name='S'+codigo[4:6]+'K'+str(int(codigo[8:10])*10**int(codigo[10]))
+     name='Leaded_Varistor_StandarD_Series-'+'S'+codigo[4:6]+'K'+str(int(codigo[8:10])*10**int(codigo[10]))
      f=open('SIOV.pretty/'+name+'.kicad_mod','w')
      f.write(s)
      f.close()
 def encabezado(codigo,x,y,descripcion,tags,reference,Rx,Ry,Vx,Vy):
-    name='S'+codigo[4:6]+'K'+str(int(codigo[8:10])*10**int(codigo[10]))
+    name='Leaded_Varistor_StandarD_Series-'+'S'+codigo[4:6]+'K'+str(int(codigo[8:10])*10**int(codigo[10]))
     #f=open('SIOV.pretty/'+name+'.mod','w')
     s="""(module {0} (layer F.Cu)
   (at {1:.2f} {2:.2f})
@@ -45,7 +45,8 @@ with open('siov_dimension.csv') as csvfile:
               hole=float(row[7])
               anchorX=x
               anchorY=y
-              content= encabezado(row[0],0,0,"","","VAR",anchorX,anchorY+th/2+1,anchorX,anchorY-th/2-1)
+              description="Varistor, Vrms="+row[9]+"V, Vdc="+row[10]+"V, Imax="+row[11]+"A"
+              content= encabezado(row[0],0,0,description,"","VAR",anchorX,anchorY+th/2+1,anchorX,anchorY-th/2-1)
               
               content+=draw_line(anchorX-width/2,anchorX+width/2,anchorY+th/2,anchorY+th/2)
               content+=draw_line(anchorX-width/2,anchorX+width/2,anchorY-th/2,anchorY-th/2)
